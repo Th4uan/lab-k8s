@@ -24,6 +24,8 @@ spec:
               value: "-Djenkins.install.runSetupWizard=false"
             - name: JENKINS_OPTS
               value: "--httpPort=8080"
+            - name: JENKINS_UC_EXPERIMENTAL
+              value: "https://updates.jenkins.io"
           resources:
             requests:
               memory: "512Mi"
@@ -37,9 +39,24 @@ spec:
             - name: jenkins-plugins
               mountPath: /usr/share/jenkins/ref/plugins.txt
               subPath: plugins.txt
+            - name: init-scripts
+              mountPath: /usr/share/jenkins/ref/init.groovy.d/
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - /bin/bash
+                  - -c
+                  - |
+                    if [ -f /usr/share/jenkins/ref/plugins.txt ]; then
+                      /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
+                    fi
       volumes:
         - name: jenkins-home
           emptyDir: {}
         - name: jenkins-plugins
           configMap:
             name: jenkins-plugins-config
+        - name: init-scripts
+          configMap:
+            name: jenkins-init-config
