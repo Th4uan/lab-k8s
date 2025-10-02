@@ -54,7 +54,7 @@ spec:
             - containerPort: 3000
           envFrom:
             - secretRef:
-                name: grafana-secrets
+                name: grafana-secret
           resources:
             requests:
               memory: "256Mi"
