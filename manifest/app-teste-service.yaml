@@ -5,12 +5,16 @@ metadata:
   namespace: app
   annotations:
     prometheus.io/scrape: "true"
-    prometheus.io/port: "80"
+    prometheus.io/port: "9113"
     prometheus.io/path: "/metrics"
 spec:
   selector:
     app: test-app
   type: ClusterIP
   ports:
-    - port: 80
+    - name: http
+      port: 80
       targetPort: 80
+    - name: metrics
+      port: 9113
+      targetPort: 9113

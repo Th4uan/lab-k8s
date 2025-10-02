@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jenkins-plugins-config
+  namespace: jenkins
+data:
+  plugins.txt: |
+    prometheus:2.0.10
+    metrics:4.2.13.1
+    workflow-aggregator:590.v6a_d052e5a_a_b_5
