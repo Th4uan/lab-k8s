@@ -7,9 +7,10 @@ metadata:
     kubernetes.io/ingress.class: traefik
 spec:
   rules:
-    - http:
+    - host: app.thauan.site
+      http:
         paths:
-          - path: /app
+          - path: /
             pathType: Prefix
             backend:
               service:

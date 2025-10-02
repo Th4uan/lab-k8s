@@ -5,13 +5,12 @@ metadata:
   namespace: jenkins
   annotations:
     kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/rewrite-target: /
-    traefik.ingress.kubernetes.io/rule-type: "PathPrefixStrip"
 spec:
   rules:
-    - http:
+    - host: jenkins.thauan.site
+      http:
         paths:
-          - path: /jenkins
+          - path: /
             pathType: Prefix
             backend:
               service:
